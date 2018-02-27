@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.0/less.min.js" ></script>
+  </head>
+  <body>
+    <div id="picture">
+    </div>
+
+    <div id="controls">
+      <h1>Customisation</h1>
+      <div id="hideControls" class="arrow"></div>
+      <section>
+        <h2>General</h2>
+        <div class="content">
+            <p>
+                <label for="resolution">Resolution</label>
+                <input type="number" name="resolution" id="resolution" min="1" max="1000"> dpi
+            </p>
+
+            <p>
+                <input type="checkbox" name="hideRowLabels" id="hideRowLabels" checked="checked">
+                <label for="hideRowLabels">Hide row labels</label>
+            </p>
+        </div>
+      </section>
+      <section>
+        <h2>Row labels</h2>
+        <div class="content">
+            <p>
+                <label for="rowLabelColor">Color</label>
+                <span id="rowLabelColorValue"></span>
+                <input type="color" name="rowLabelColor" id="rowLabelColor">
+            </p>
+
+            <p>
+                <label for="rowLabelHeight">Font size</label>
+                <span id="rowLabelHeightValue"></span>
+                <input type="range" name="rowLabelHeight" id="rowLabelHeight" min="0.01" max="1" step="0.01">
+            </p>
+
+            <p>
+                <span class="label">Alignment</span>
+                <div>
+                    <input type="radio" name="rowLabelAlignment" id="rowLabelAlignment1" value="left"><label for="rowLabelAlignment1">Left</label>
+                    <input type="radio" name="rowLabelAlignment" id="rowLabelAlignment2" value="center"><label for="rowLabelAlignment2">Center</label>
+                    <input type="radio" name="rowLabelAlignment" id="rowLabelAlignment3" value="right"><label for="rowLabelAlignment3">Right</label>
+                </div>
+            </p>
+        </div>
+      </section>
+      <section>
+        <h2>Timelines</h2>
+        <div class="content">
+            <p>
+                <label for="dataHeight">Height</label>
+                <span id="dataHeightValue"></span>
+                <input type="range" name="dataHeight" id="dataHeight" min="0" max="1" step="0.01">
+            </p>
+
+            <p>
+                <label for="dataLabelHeight">Font size</label>
+                <span id="dataLabelHeightValue"></span>
+                <input type="range" name="dataLabelHeight" id="dataLabelHeight" min="0" max="1" step="0.01">
+            </p>
+
+            <p>
+                <label for="dataHorizontalPadding">Horizontal padding</label>
+                <span id="dataHorizontalPaddingValue"></span>
+                <input type="range" name="dataHorizontalPadding" id="dataHorizontalPadding" min="0" max="1" step="0.01">
+            </p>
+
+            <p>
+                <label for="dataVerticalMargin">Vertical margin</label>
+                <span id="dataVerticalMarginValue"></span>
+                <input type="range" name="dataVerticalMargin" id="dataVerticalMargin" min="0" max="1" step="0.01">
+            </p>
+
+            <p>
+                <label for="dataGutter">Gutter width</label>
+                <span id="dataGutterValue"></span>
+                <input type="range" name="dataGutter" id="dataGutter" min="0" max="1" step="0.01">
+            </p>
+
+            <p>
+                <span class="label">Alignment</span>
+                <div>
+                    <input type="radio" name="dataLabelAlignment" id="dataLabelAlignment1" value="left"><label for="dataLabelAlignment1">Left</label>
+                    <input type="radio" name="dataLabelAlignment" id="dataLabelAlignment2" value="center"><label for="dataLabelAlignment2">Center</label>
+                    <input type="radio" name="dataLabelAlignment" id="dataLabelAlignment3" value="right"><label for="dataLabelAlignment3">Right</label>
+                </div>
+            </p>
+
+            <p>
+                <input type="checkbox" name="dataCropLabels" id="dataCropLabels" checked="checked">
+                <label for="dataCropLabels">Crop labels</label>
+            </p>
+
+            <p>
+                <input type="checkbox" name="hideLabelIfTooLong" id="hideLabelIfTooLong" checked="checked">
+                <label for="hideLabelIfTooLong">Hide label if it's too long</label>
+            </p>
+        </div>
+      </section>
+      <section>
+        <h2>Markers</h2>
+        <div class="content">
+            <p>
+                <label for="markerLabelColor">Color</label>
+                <span id="markerLabelColorValue"></span>
+                <input type="color" name="markerLabelColor" id="markerLabelColor">
+            </p>
+
+            <p>
+                <label for="markerLabelHeight">Font size</label>
+                <span id="markerLabelHeightValue"></span>
+                <input type="range" name="markerLabelHeight" id="markerLabelHeight" min="0.01" max="1" step="0.01">
+            </p>
+
+            <p>
+                <label for="markerLabelMargin">Margin above labels</label>
+                <span id="markerLabelMarginValue"></span>
+                <input type="range" name="markerLabelMargin" id="markerLabelMargin" min="0" max="1" step="0.01">
+            </p>
+        </div>
+      </section>
+      <button id="resetConfig">Reset</button>
+
+      <h1>Data</h1>
+      <div class="help"><span class="label">Format:</span> row label,timeline label,year,month,day,year,month,day</div>
+      <div class="example"><span class="label">Example:</span> President,George W. Bush,1789,3,30,1797,2,4</div>
+      <textarea id="data"></textarea>
+    </div>
+
+    <script src="moment-with-locales.min.js"></script>
+    <script src="p5.min.js"></script>
+    <script src="p5.dom.min.js"></script>
+    <script src="Timeline.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

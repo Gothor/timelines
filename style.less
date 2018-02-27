@@ -1,0 +1,161 @@
+@controlsWidth: 500px;
+@arrowWidth: 20px;
+@arrowHeight: 30px;
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: Calibri;
+}
+
+#picture {
+    box-sizing: border-box;
+    padding: 10px;
+    height: 100%;
+    overflow: auto;
+    max-width: calc(~"100% - " @controlsWidth);
+    transition: max-width 1s ease-in-out;
+    text-align: center;
+}
+
+#picture canvas {
+    position: relative;
+}
+
+/* % Controls */
+
+#controls {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 15px 0 0;
+    width: @controlsWidth;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    border-left: 2px solid #888;
+    box-shadow: 0 0 8px #888;
+    transition: right 1s ease-in-out;
+    overflow: auto;
+}
+
+#controls .arrow {
+    position: fixed;
+    background-color: #fff;
+    top: 20px;
+    right: calc(@controlsWidth - 2px);
+    width: @arrowWidth;
+    height: @arrowHeight;
+    text-align: center;
+    border: 2px solid #888;
+    border-right: none;
+    line-height: @arrowHeight;
+    box-shadow: -2px 0 4px 0px #888;
+    transition: right 1s ease-in-out;
+}
+
+#controls .arrow:before {
+    content: '>';
+}
+
+#controls h1 {
+    margin: 0.1em 20px;
+}
+
+#controls section h2 {
+    position: relative;
+    margin: 0;
+    padding: 5px 20px;
+    background-color: #888;
+    color: white;
+    border-top: 2px solid #555;
+    border-bottom: 2px solid #555;
+}
+
+#controls section h2:after {
+    content: '-';
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 6px;
+}
+
+#controls section .content {
+    padding: 10px;
+    background-color: #eee;
+}
+
+#controls section .content label,
+#controls section .content .label {
+    color: #000;
+    margin-right: 15px;
+}
+
+#controls section .content span {
+    color: #888;
+}
+
+#controls section .content input[type=range],
+#controls section .content input[type=color] {
+    width: 100%;
+    margin: 5px 0;
+}
+
+#controls section.hidden .content {
+    display: none;
+}
+
+#resetConfig {
+    width: calc(@controlsWidth - 42px);
+    margin: 10px 20px;
+}
+
+#controls > textarea {
+    width: calc(@controlsWidth - 42px);
+    min-height: 300px;
+    margin: 10px 20px;
+    box-sizing: border-box;
+}
+
+#controls .help,
+#controls .example {
+    margin: auto 20px;
+    color: #555;
+    font-size: 0.8em;
+}
+
+#controls .example {
+    font-style: italic;
+}
+
+#controls .help .label,
+#controls .example .label {
+    font-weight: bold;
+}
+
+/* % Hidden controls */
+
+#picture.whole {
+    max-width: 100%;
+}
+
+#controls.hidden {
+    right: -@controlsWidth;
+}
+
+#controls.hidden .arrow {
+    right: 0;
+}
+
+#controls.hidden .arrow:before {
+    content: '<';
+}
+
+#controls section.hidden h2:after {
+    content: '+';
+}
