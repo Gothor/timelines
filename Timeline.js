@@ -142,8 +142,11 @@ class Timeline {
         if (markerUnit === 'year') {
             start.year(start.year() - start.year() % markerFrequency + markerFrequency);
         }
+        let format = this.markerCustomFormat();
+        if (!format) format = this.markerFormat();
         while(start.isSameOrBefore(end, markerUnit)) {
-            markers.push(new Marker(start, this.markerFormat()));
+            let marker = new Marker(start, format);
+            markers.push(marker);
             start.add(markerFrequency, markerUnit);
         }
         return markers;
@@ -187,6 +190,7 @@ class Timeline {
             markerLabelColor: "#4d4d4d",
             markerLabelHeight: 0.12,
             markerLabelMargin: 0.13888,
+            markerCustomFormat: null,
 
             margin: 0.11111,
             borderWidth: 0.01388,
@@ -435,20 +439,6 @@ class Timeline {
         this._hideRowLabels = val;
     }
 
-    markers(val) {
-        if (val === undefined)
-            return this._markers;
-
-        this._markers = val;
-    }
-
-    markerFormat(val) {
-        if (val === undefined)
-            return this._markerFormat;
-
-        this._markerFormat = val;
-    }
-
     margin(val) {
         if (val === undefined)
             return this._margin * this._resolution;
@@ -609,6 +599,20 @@ class Timeline {
         this._markerLabelMargin = val;
     }
 
+    markerFormat(val) {
+        if (val === undefined)
+            return this._markerFormat;
+
+        this._markerFormat = val;
+    }
+
+    markerCustomFormat(val) {
+        if (val === undefined)
+            return this._markerCustomFormat;
+
+        this._markerCustomFormat = val;
+    }
+
     // Getters
 
     width(val) {
@@ -626,6 +630,13 @@ class Timeline {
         }
 
         return sum + this.markerLabelHeight() + this.markerLabelMargin();
+    }
+
+    markers(val) {
+        if (val === undefined)
+            return this._markers;
+
+        this._markers = val;
     }
 
     getLongestLabelWidth() {

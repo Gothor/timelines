@@ -132,6 +132,18 @@
                 <span id="markerLabelMarginValue"></span>
                 <input type="range" name="markerLabelMargin" id="markerLabelMargin" min="0" max="1" step="0.01">
             </p>
+
+            <p>
+                <span class="label">Format</span>
+                <p>
+                    <input type="radio" name="markerFormat" id="markerFormat1" value="default" checked><label for="markerFormat1">Default</label>
+                </p>
+                <p>
+                    <input type="radio" name="markerFormat" id="markerFormat2" value="custom"><label for="markerFormat2">Custom</label>
+                    <input type="text" name="markerCustomFormat" id="markerCustomFormat" value="MMM. YYYY" disabled><br>
+                    <a target="_blank" href="http://momentjs.com/docs/#year-month-and-day-tokens" class="help">How to format dates ?</a>
+                </p>
+            </p>
         </div>
       </section>
       <button id="resetConfig">Reset</button>

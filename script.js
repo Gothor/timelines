@@ -37,6 +37,9 @@ const markerLabelHeight = document.getElementById('markerLabelHeight');
 const markerLabelHeightValue = document.getElementById('markerLabelHeightValue');
 const markerMargin = document.getElementById('markerMargin');
 const markerMarginValue = document.getElementById('markerMarginValue');
+const markerFormat1 = document.getElementById('markerFormat1');
+const markerFormat2 = document.getElementById('markerFormat2');
+const markerCustomFormat = document.getElementById('markerCustomFormat');
 
 const resetConfig = document.getElementById('resetConfig');
 const data = document.getElementById('data');
@@ -65,7 +68,10 @@ const inputsAndValues = [
 
     markerLabelHeight, markerLabelHeightValue,
     markerLabelMargin, markerLabelMarginValue,
-    markerLabelColor, markerLabelColorValue
+    markerLabelColor, markerLabelColorValue,
+    markerFormat1, null,
+    markerFormat2, null,
+    markerCustomFormat, null
 ];
 
 let w = 16;
@@ -192,6 +198,14 @@ function setup() {
         saveData(this.value);
         resizeAndRedraw();
     });
+
+    markerFormat1.addEventListener('change', e => {
+        markerCustomFormat.disabled = true;
+    });
+    markerFormat2.addEventListener('change', e => {
+        markerCustomFormat.disabled = false;
+    });
+    markerCustomFormat.disabled = !markerFormat2.checked;
 }
 
 function setValuesFromConfig() {
@@ -236,6 +250,10 @@ function saveData(data) {
 function setTimelineConfig() {
     let clone = extend({}, config);
     clone.width *= clone.resolution;
+
+    if (clone.markerFormat === 'default') {
+        clone.markerCustomFormat = null;
+    }
 
     timeline.set(clone);
 }
