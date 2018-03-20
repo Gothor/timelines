@@ -3,6 +3,8 @@ const hideControls = document.getElementById('hideControls');
 const picture = document.getElementById('picture');
 
 const resolution = document.getElementById('resolution');
+const widthSlider = document.getElementById('width');
+const widthValue = document.getElementById('widthValue');
 const hideRowLabels = document.getElementById('hideRowLabels');
 
 const rowLabelColor = document.getElementById('rowLabelColor');
@@ -41,6 +43,7 @@ const data = document.getElementById('data');
 
 const inputsAndValues = [
     resolution, null,
+    widthSlider, widthValue,
     hideRowLabels, null,
 
     rowLabelColor, rowLabelColorValue,
@@ -65,7 +68,7 @@ const inputsAndValues = [
     markerLabelColor, markerLabelColorValue
 ];
 
-let w = 14;
+let w = 16;
 let h = 0;
 
 let canvas;
@@ -81,7 +84,7 @@ function setup() {
     let storedData = getData();
     data.innerHTML = storedData;
     timeline.parse(storedData);
-    canvas = createCanvas(w * timeline.resolution(), timeline.getHeight());
+    canvas = createCanvas(timeline.width(), timeline.height());
     canvas.parent('picture');
     noLoop();
 
@@ -151,8 +154,6 @@ function setup() {
                 if (target) {
                     target.innerHTML = this.value;
                 }
-                // console.log(this.id);
-                // console.log(this.value);
                 let value;
                 switch (this.type) {
                     case 'radio':
@@ -232,15 +233,22 @@ function saveData(data) {
     localStorage.setItem('data', data);
 }
 
+function setTimelineConfig() {
+    let clone = extend({}, config);
+    clone.width *= clone.resolution;
+
+    timeline.set(clone);
+}
+
 function resizeAndRedraw() {
-    timeline.set(config);
-    resizeCanvas(w * timeline.resolution(), timeline.getHeight());
+    setTimelineConfig();
+    resizeCanvas(timeline.width(), timeline.height());
 }
 
 function draw() {
     clear();
 
-    timeline.set(config);
+    setTimelineConfig();
     timeline.draw();
 
     rescale();
@@ -248,7 +256,7 @@ function draw() {
 
 function rescale() {
     let pictureWidth = parseInt(window.getComputedStyle(picture, null).getPropertyValue('width'));
-    let canvasWidth = w * timeline.resolution();
+    let canvasWidth = timeline.width();
     let taller = pictureWidth < canvasWidth;
 
     canvas.elt.style.width = taller && rescaled ? "100%" : 'auto';

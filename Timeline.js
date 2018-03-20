@@ -166,6 +166,7 @@ class Timeline {
         return {
             // General
             resolution: 72,
+            width: 1500,
             hideRowLabels: false,
 
             // Row label
@@ -271,7 +272,7 @@ class Timeline {
     draw() {
         let labelWidth = this.getLongestLabelWidth();
         let labelBoxWidth = this.hideRowLabels() ? 0 : labelWidth + 2 * this.margin();
-        let dataBoxWidth = this.hideRowLabels() ? width : width - labelBoxWidth;
+        let dataBoxWidth = this.hideRowLabels() ? this.width() : this.width() - labelBoxWidth;
 
         let offsetY = 0;
 
@@ -289,7 +290,7 @@ class Timeline {
             // Background
             fill((i + 1) % 2 ? this.oddBackgroundColor() : this.evenBackgroundColor());
             noStroke();
-            rect(0, offsetY, width, rowHeight);
+            rect(0, offsetY, this.width(), rowHeight);
 
             // Label text
             if (!this.hideRowLabels()) {
@@ -397,7 +398,7 @@ class Timeline {
             noFill();
             stroke(this.borderColor());
             strokeWeight(this.borderWidth());
-            rect(0, offsetY, width, rowHeight);
+            rect(0, offsetY, this.width(), rowHeight);
 
             offsetY += rowHeight;
         }
@@ -412,7 +413,7 @@ class Timeline {
 
             let x = labelBoxWidth + (marker.diff(this.getStartingDate(), 'days') / this.getPeriodLength()) * dataBoxWidth;
             x = max(textWidth(str) / 2, x);
-            x = min(width - textWidth(str) / 2, x);
+            x = min(this.width() - textWidth(str) / 2, x);
 
             text(str, x, offsetY + this.markerLabelMargin());
         }
@@ -610,16 +611,18 @@ class Timeline {
 
     // Getters
 
-    getHeight() {
+    width(val) {
+        if (val === undefined)
+            return this._width;
+
+        this._width = val;
+    }
+
+    height() {
         let sum = 0;
 
         for (const row of this.rows) {
             sum += this.getRowHeight(row.subrows.length);
-            /*
-            sum += this.dataVerticalMargin() * 2;
-            sum += row.subrows.length * this.dataHeight();
-            sum += (row.subrows.length - 1) * this.dataGutter();
-            */
         }
 
         return sum + this.markerLabelHeight() + this.markerLabelMargin();
